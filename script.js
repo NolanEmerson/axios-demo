@@ -1,24 +1,24 @@
 const BASE_URL = 'http://api.reactprototypes.com';
 const API_KEY = '?key=testuser1234';
 
-axios.get(`${BASE_URL}/todos${API_KEY}`).then(resp => {
-    const { todos } = resp.data;
-    const table = $('table tbody');
-
-    addToDom(todos, table);
+axios.get(`${BASE_URL}/todos${API_KEY}`).then(response => {
+    console.log('Server response: ', response);
+}).catch( error => {
+    console.log('Error, dingus: ', error.message);
 });
 
-const addToDom = (list, container) => {
-    const tableRows = list.map((item, index) => {
+const newItem = {
+    title: 'Dismantle the floorboards of oppression',
+    details: 'No longer shall the honorable proletariat be forced to slave away while the bourgeoisie relax and reap the benefits of the working man\'s labors'
+}
 
-        const tableData = [
-            $(`<td>${index + 1}</td>`),
-            $(`<td>${item.title}</td>`),
-            item.complete ? $(`<td class="text-success">Yes</td>`) : $(`<td class="text-danger">No</td>`)
-        ];
+// axios.post(`${BASE_URL}/todos${API_KEY}`, newItem).then(response => {
+//     console.log('Add response: ', response);
+// });
 
-        return $('<tr>').append(tableData);
-    });
+const itemID1 = '5ac278ac329150131fbbff65';
+const itemID2 = '5ac278a3329150131fbbff63';
 
-    container.append(tableRows);
-};
+axios.get(`${BASE_URL}/todos/${itemID1 + API_KEY}`).then(response => {
+    console.log('Specific item response: ', response);
+});
